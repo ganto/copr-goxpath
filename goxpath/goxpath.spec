@@ -30,7 +30,7 @@
 
 Name:           goxpath
 Version:        1.0.alpha3
-Release:        0.1.git%{shortcommit}%{?dist}
+Release:        0.2.git%{shortcommit}%{?dist}
 Summary:        An XPath 1.0 implementation written in Go
 License:        MIT
 URL:            https://%{provider_prefix}
@@ -60,22 +60,16 @@ Requires:       golang(golang.org/x/net/html/charset)
 Requires:       golang(golang.org/x/text/language)
 
 Provides:       golang(%{import_path}) = %{version}-%{release}
-Provides:       golang(%{import_path}/cmd/goxpath) = %{version}-%{release}
-Provides:       golang(%{import_path}/internal) = %{version}-%{release}
-Provides:       golang(%{import_path}/internal/execxp) = %{version}-%{release}
-Provides:       golang(%{import_path}/internal/lexer) = %{version}-%{release}
-Provides:       golang(%{import_path}/internal/parser) = %{version}-%{release}
-Provides:       golang(%{import_path}/internal/parser/findutil) = %{version}-%{release}
-Provides:       golang(%{import_path}/internal/parser/intfns) = %{version}-%{release}
-Provides:       golang(%{import_path}/internal/parser/pathexpr) = %{version}-%{release}
-Provides:       golang(%{import_path}/internal/xconst) = %{version}-%{release}
-Provides:       golang(%{import_path}/internal/xsort) = %{version}-%{release}
+Provides:       golang(%{import_path}/lexer) = %{version}-%{release}
+Provides:       golang(%{import_path}/parser) = %{version}-%{release}
+Provides:       golang(%{import_path}/parser/pathexpr) = %{version}-%{release}
 Provides:       golang(%{import_path}/tree) = %{version}-%{release}
 Provides:       golang(%{import_path}/tree/xmlstruct) = %{version}-%{release}
 Provides:       golang(%{import_path}/tree/xmltree) = %{version}-%{release}
 Provides:       golang(%{import_path}/tree/xmltree/xmlbuilder) = %{version}-%{release}
 Provides:       golang(%{import_path}/tree/xmltree/xmlele) = %{version}-%{release}
 Provides:       golang(%{import_path}/tree/xmltree/xmlnode) = %{version}-%{release}
+Provides:       golang(%{import_path}/xconst) = %{version}-%{release}
 
 %description -n golang-%{provider}-%{project}-%{repo}-devel
 %{summary}
@@ -86,7 +80,8 @@ which use import path with %{import_path} prefix.
 
 %if 0%{?with_unit_test}
 %package -n golang-%{provider}-%{project}-%{repo}-unit-test
-Summary:         Unit tests for %{name} package
+Summary:        Unit tests for %{name} package
+BuildArch:      noarch
 # If go_arches not defined fall through to implicit golang archs
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 
@@ -174,11 +169,15 @@ export GOPATH=%{buildroot}/%{gopath}:%{gopath}
 %global gotest go test
 %endif
 
+# properly include relative file paths
 pushd src/%{import_path}/cmd/goxpath
 %gotest
 popd
 
 %gotest %{import_path}
+%gotest %{import_path}/lexer/...
+%gotest %{import_path}/parser/...
+%gotest %{import_path}/tree/...
 %endif
 
 #define license tag if not already defined
