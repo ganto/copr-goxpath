@@ -202,6 +202,11 @@ popd
 %endif
 
 %changelog
+* Fri Dec 01 2017 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> 1.0.alpha3-0.2.gitc385f95
+- Fix package 'Provides:'
+- Mark unit test package as 'noarch'
+- Make sure to run all tests
+
 * Mon Nov 27 2017 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> 1.0.alpha3-0.1.gitc385f95
 - new package built with tito
 
