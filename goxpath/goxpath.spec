@@ -202,6 +202,9 @@ popd
 %endif
 
 %changelog
+* Thu Dec 14 2017 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> 1.0.alpha3-0.3.gitc385f95
+- Fix unit-test package dependency
+
 * Fri Dec 01 2017 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> 1.0.alpha3-0.2.gitc385f95
 - Fix package 'Provides:'
 - Mark unit test package as 'noarch'
