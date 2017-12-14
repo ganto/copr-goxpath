@@ -30,7 +30,7 @@
 
 Name:           goxpath
 Version:        1.0.alpha3
-Release:        0.2.git%{shortcommit}%{?dist}
+Release:        0.3.git%{shortcommit}%{?dist}
 Summary:        An XPath 1.0 implementation written in Go
 License:        MIT
 URL:            https://%{provider_prefix}
@@ -91,7 +91,7 @@ BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 %endif
 
 # test subpackage tests code from devel subpackage
-Requires:       golang-github-christrenkamp-goxpath-devel = %{version}-%{release}
+Requires:       golang-%{provider}-%{project}-%{repo}-devel = %{version}-%{release}
 
 Requires:       golang(gopkg.in/check.v1)
 
